@@ -127,7 +127,7 @@ OUTPUT:
 */
 
 export function findByName(name, arr) {
-    return arr.find(pet => pet.name = 'sassy');
+    return arr.find((pet) => pet.name === name);
 }
 
 /*
@@ -153,7 +153,10 @@ Output:
 */
 
 export function makeArrayOfArraysOfArrays(arr) {
-    return [];
+    return arr.map(pet => [
+        ['name', pet.name],
+        ['type', pet.type]
+    ]) ;
 }
 
 ////////////////////////////////////////////////////////
@@ -182,7 +185,7 @@ Output:
 */
 
 export function getCars(arr) {
-    return [];
+    return arr.filter(vehicle => vehicle.type === 'car');
 }
 
 /*
@@ -195,7 +198,9 @@ Output:
 */
 
 export function getChevyCars(arr) {
-    return [];
+    return arr.filter(vehicle => vehicle.type === 'car').filter(car => car.make === 'chevy');
+   
+                
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -212,7 +217,9 @@ Output:
  */
 
 export function makeModelsStringWithReduce(arr) {
-    return '';
+    return arr.reduce((acc, curr) => (
+        acc + curr.model
+    ), '');
 }
 
 /*
@@ -222,8 +229,13 @@ Output: 14
  */
 
 export function getSumOfAges(arr) {
-    return 0;
+    return arr.reduce((acc, curr) => {
+        acc = acc + curr.age;
+        return acc;
+    },
+    0);
 }
+
 
 /*
 
@@ -236,7 +248,10 @@ Output:
  */
 
 export function makeCountObject(arr) {
-    return {};
+    return arr.reduce((acc, { type, age }) => ({
+        ...acc,
+        [type]: age
+    }), {});
 }
 
 
@@ -249,5 +264,8 @@ Output:
 
 
 export function makeKeysString(arr) {
-    return '';
+    return arr.reduce((acc, { make, type, model, age }) => ({
+        ...acc,
+        ['ford']: type, age, model
+    }), {});
 }
